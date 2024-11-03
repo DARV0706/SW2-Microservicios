@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(name="products-service")
-@LoadBalancerClient(value="products-service", configuration= LoadBalancingConfiguration.class )
+//@LoadBalancerClient(value="products-service", configuration= LoadBalancingConfiguration.class )
 public interface ProductoFeign {
     @GetMapping("productos/lista")
     ProductoResponseDTO getProductsById(@RequestParam List<Integer> ids);
