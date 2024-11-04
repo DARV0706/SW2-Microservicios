@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductoController {
 
     @Autowired
-    ProductoService servicio ;
+    private ProductoService servicio ;
     @Value("${server.port}")
     private String instanceId;
 

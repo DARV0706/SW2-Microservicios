@@ -5,10 +5,7 @@ import co.edu.unbosque.sw2.checkout_service.DTO.ProductDTO;
 import co.edu.unbosque.sw2.checkout_service.DTO.ProductoResponseDTO;
 import co.edu.unbosque.sw2.checkout_service.Feign.ProductoFeign;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +18,8 @@ public class CheckoutController {
     private ProductoFeign productoFeign;
 
     @GetMapping("/inicio")
-    public CheckoutDTO inciarCheckout (@RequestParam List<Integer> ids){
+    public CheckoutDTO inciarCheckout (@RequestParam List<Integer> ids,
+                                       @RequestHeader("x-request-from") String requestFrom){
         ProductoResponseDTO respuesta = productoFeign.getProductsById(ids);
         List<ProductDTO> products = respuesta.getProducts();
 
@@ -37,6 +35,8 @@ public class CheckoutController {
         CheckoutDTO.setMetodoPago(List.of("Credit Card", "PayPal", "PSE", "Efecty"));  // Ejemplo
         CheckoutDTO.setUrl("https://EjemplodeUrl.com/checkout/" + CheckoutDTO.getId());
         CheckoutDTO.setLog("La respuesta se produjo desde el puerto ".concat(respuesta.getInstanceId()));
+        System.out.println("Se está realizando la respuesta desde el servicio: " + requestFrom);
+
 
         return CheckoutDTO;
     }
