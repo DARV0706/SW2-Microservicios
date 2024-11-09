@@ -18,8 +18,8 @@ public class CheckoutController {
     private ProductoFeign productoFeign;
 
     @GetMapping("/inicio")
-    public CheckoutDTO inciarCheckout (@RequestParam List<Integer> ids,
-                                       @RequestHeader("x-request-from") String requestFrom){
+    public CheckoutDTO inciarCheckout (@RequestParam List<Integer> ids
+                                       ){
         ProductoResponseDTO respuesta = productoFeign.getProductsById(ids);
         List<ProductDTO> products = respuesta.getProducts();
 
@@ -35,7 +35,7 @@ public class CheckoutController {
         CheckoutDTO.setMetodoPago(List.of("Credit Card", "PayPal", "PSE", "Efecty"));  // Ejemplo
         CheckoutDTO.setUrl("https://EjemplodeUrl.com/checkout/" + CheckoutDTO.getId());
         CheckoutDTO.setLog("La respuesta se produjo desde el puerto ".concat(respuesta.getInstanceId()));
-        System.out.println("Se está realizando la respuesta desde el servicio: " + requestFrom);
+       // System.out.println("Se está realizando la respuesta desde el servicio: " + requestFrom);
 
 
         return CheckoutDTO;
